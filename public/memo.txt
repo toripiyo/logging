@@ -1,0 +1,9 @@
+- duration 項目の追加
+- 挙動がおかしくなる理由　ー＞絡むの作成や削除時に、init配列にデータが保存されていないため -> 修正
+- data save function
+- favicon image 作る
+- toの最後の列の値を変更する
+- $scope watch
+
+
+60025 - 54034

@@ -1,0 +1,52 @@
+    <!doctype html>
+    <html lang="en" ng-app>
+    <head>
+    <meta charset="utf-8">
+    <title>Logging Tool</title>
+    <link rel="stylesheet" href="css/app.css">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <script src="angular.js"></script>
+    <script src="historyctrl.js"></script>
+    </head>
+    <body>
+    <div class="container-fluid"  ng-app ng-init="current='XX:XX'" ng-controller="HistoryCtrl">
+    <h1>Logging Tool</h1>
+
+    <div class="row-fluid">
+
+    <div class="span2">
+    <table>
+    <tr><td><h3>eyes content</h3></td></tr>
+    <tr ng-repeat="eye in eyes">
+        <td>{{eye.content}}</td>
+    </tr>
+    </table>
+    </div>
+
+    <div class="span10">
+    <h3>20140204</h3>
+    <div>
+    <div ng-init="time_records = init">
+    <table>
+    <tr><td>from</td><td>to</td><td>duration</td><td>activity</td><td>code</td></tr>
+    <tr ng-repeat="record in time_records">
+    <td><input type="time" ng-model="from[($index)]" required ></td>
+    <td>{{from[($index)+1]}}</td>
+    <td>{{duration[($index)]}}</td>
+    <td><input type="text" ng-model="activity[($index)]" required ></td>
+    <td><input type="text" ng-model="code[($index)]" required></td>
+    <td><button ng-click="updateForm($index)">current time</button></td>
+    <td><button ng-click="addRecord($index)">+</button></td>
+    <td><button ng-click="removeRecord($index)">-</button></td>
+    </tr>
+    </table>
+    </div>
+    </div>
+    <!-- {{init}} -->
+    </div>
+
+    </div>
+
+    </div>  
+    </body>
+    </html>

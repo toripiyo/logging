@@ -1,0 +1,23 @@
+
+
+<div ng-init="time_records = [
+{from:'18:34', to:'19:35', activity:'blog server construction', code:75},
+{from:'14:34', to:'23:35', activity:'profile ssl certificate update', code:422},
+{from:'19:34', to:'22:35', activity:'rest', code:823},
+{from:'02:34', to:'05:35', activity:'dns switching', code:55},
+{from:'10:34', to:'11:58', activity:'consult with app about switching', code:1015}]">
+
+
+
+ <div ng-init="friends = [
+{name:'John', age:25, gender:'boy'},
+{name:'Jessie', age:30, gender:'girl'},
+{name:'Johanna', age:28, gender:'girl'},
+{name:'Joy', age:15, gender:'girl'},
+{name:'Mary', age:28, gender:'girl'},
+{name:'Peter', age:95, gender:'boy'},
+{name:'Sebastian', age:50, gender:'boy'},
+{name:'Erika', age:27, gender:'girl'},
+{name:'Patrick', age:40, gender:'boy'},
+{name:'Samantha', age:60, gender:'girl'}
+]">

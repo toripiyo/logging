@@ -1,0 +1,7 @@
+[
+    {"from":"09:34", "to":"10:25", "activity":"blog server construction", "code":"75"},
+    {"from":"10:25", "to":"11:34", "activity":"profile ssl certificate update", "code":"422"},
+    {"from":"11:34", "to":"13:34", "activity":"rest", "code":"823"},
+    {"from":"13:34", "to":"15:34", "activity":"dns switching", "code":"55"},
+    {"from":"15:34", "to":"17:58", "activity":"consult with app about switching", "code":"1015"}
+]
