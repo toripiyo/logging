@@ -1,7 +1,5 @@
 function HistoryCtrl($scope, $http) {
 
-    // $scope.init = $http.get('record.json');
-
     $scope.init = [
         {from:'09:34', to:'10:25', activity:'blog server construction', code:75},
         {from:'10:25', to:'11:34', activity:'profile ssl certificate update', code:422},
@@ -10,9 +8,6 @@ function HistoryCtrl($scope, $http) {
         {from:'15:34', to:'17:58', activity:'consult with app about switching', code:1015}
     ]
 
-    // alert($scope.init[0].from);
-    // alert();
-
     $scope.eyes = [
         {content:'075 IS blog'},
         {content:'422 research'},
@@ -20,6 +15,9 @@ function HistoryCtrl($scope, $http) {
         {content:'1025 kobo ebook'},
         {content:'1039 IS cats paws'}
     ];
+
+
+    $scope.records = [];
 
     $scope.from = [];
     $scope.to = [];
@@ -67,6 +65,15 @@ function HistoryCtrl($scope, $http) {
             $scope.activity.push($scope.init[i].activity);
         }        
     }
+
+    $scope.insertRecord = function (index){
+        $scope.records.splice(index + 1,0,{});
+    }
+
+    $scope.deleteRecord = function (index){
+        $scope.records.splice(index,1);
+    }
+
     
     $scope.removeRecord = function (index){
         update_init();

@@ -21,7 +21,54 @@ html(lang="en", ng-app)
                 div(class="span10")
                     h3 20140204
                     div
-                        div(ng-init="time_records = data")
+                        //- div(ng-init="time_records=init")
+                        //-     table
+                        //-         tr
+                        //-             td from
+                        //-             td to
+                        //-             td duration
+                        //-             td activity
+                        //-             td eyes
+                        //-         tr(ng-repeat="record in time_records")
+                        //-             td
+                        //-                 input(type="time", ng-model="from[($index)]", required)
+                        //-             td {{from[($index)+1]}}
+                        //-             td {{duration[($index)]}}
+                        //-             td
+                        //-                 input(type="text", ng-model="activity[($index)]", required)
+                        //-             td
+                        //-                 input(type="text", ng-model="eyes[($index)].content", required)
+                        //-             td
+                        //-                 button(ng-click="updateForm($index)") current time
+                        //-             td
+                        //-                 button(ng-click="addRecord($index)") +
+                        //-             td
+                        //-                 button(ng-click="removeRecord($index)") -
+
+                        //-     table
+                        //-         tr
+                        //-             td from
+                        //-             td to
+                        //-             td duration
+                        //-             td activity
+                        //-             td eyes
+                        //-         each record, i in data
+                        //-             tr
+                        //-                 td
+                        //-                     input(type="time", value="#{record.from}", ng-model="from[#{i}]", required)
+                        //-                 td {{from[#{i+1}]}}
+                        //-                 td 12
+                        //-                 td
+                        //-                     input(type="text", value="#{record.activity}", ng-model="activity[#{i}]", required)
+                        //-                 td
+                        //-                     input(type="text", value="#{record.code}", ng-model="code[#{i}]", required)
+                        //-                 td
+                        //-                     button(ng-click="updateForm(#{i})") current time
+                        //-                 td
+                        //-                     button(ng-click="addRecord(#{i})") +
+                        //-                 td
+                        //-                     button(ng-click="removeRecord(#{i})") -
+                        div(ng-init="records=[#{data}]")
                             table
                                 tr
                                     td from
@@ -29,21 +76,20 @@ html(lang="en", ng-app)
                                     td duration
                                     td activity
                                     td eyes
-                                tr(ng-repeat="record in time_records")
+                                tr(ng-repeat="record in records")
                                     td
-                                        input(type="time", ng-model="from[($index)]", required)
-                                    td {{from[($index)+1]}}
-                                    td {{duration[($index)]}}
+                                        input(type="text", ng-model="records[($index)].from", required)
+                                    td {{records[($index)+1].from}}
+                                    td 12
                                     td
-                                        input(type="text", ng-model="activity[($index)]", required)
+                                        input(type="text", ng-model="records[($index)].activity", required)
                                     td
-                                        input(type="text", ng-model="eyes[($index)].content", required)
+                                        input(type="text", ng-model="records[($index)].code", required)
                                     td
                                         button(ng-click="updateForm($index)") current time
                                     td
-                                        button(ng-click="addRecord($index)") +
+                                        button(ng-click="insertRecord($index)") +
                                     td
-                                        button(ng-click="removeRecord($index)") -
-                            each item in data
-                                p #{item.from}
+                                        button(ng-click="deleteRecord($index)") -
+                            {{records}}
             //- {{init}}
