@@ -36,10 +36,29 @@ function RecordCtrl($scope, $http) {
         return Math.round(time/60*100)/100;
     }
 
-    $scope.saveRecord = function(data){
-        data.forEach(
-            
-        )
-    }
+    $scope.saveRecord = function(){
+
+        var method = 'POST';
+        var url = 'http://localhost:3000/';
+
+        console.log($scope.records);
+
+        $http({ // Accessing the Angular $http Service to send data via REST Communication to Node Server.
+                method: method,
+                url: url,
+                data:  $scope.records,
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                // cache: true
+            }).
+            success(function(response) {
+                console.log("success"); // Getting Success Response in Callback
+            }).
+            error(function(response) {
+                console.log("error"); // Getting Error Response in Callback
+            });
+
+    };  
+
+
 
 }
