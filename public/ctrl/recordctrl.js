@@ -11,30 +11,51 @@ function RecordCtrl($scope, $http) {
     };
 
     $scope.insertRecord = function (index){
-        $scope.records.splice(index + 1,0,{});
+
+        if (index == ($scope.records.length -1)) {
+            var tmp = $scope.records[index].to;
+            $scope.records.splice(index + 1,0,{});
+            $scope.records[$scope.records.length -1].from = tmp;
+        }else{
+            $scope.records.splice(index + 1,0,{});
+        }
+
     }
 
     $scope.deleteRecord = function (index){
         $scope.records.splice(index,1);
     }
 
-    $scope.calculateDuration = function(s_time, e_time){
 
-        if(!(s_time) || !(e_time)) {
-            return "--:--";
+    $scope.calculateDuration = function (index){
+
+        differenceClock = function(s_time, e_time){
+
+            if(!(s_time) || !(e_time)) {
+                return "--:--";
+            }
+
+            s = s_time.split(":");
+            e = e_time.split(":");
+            
+            time = (Number(e[0])*60)+ +Number(e[1]) - (Number(s[0])*60) - Number(s[1]);
+
+            if(!(time)) {
+                return "--:--";
+            }
+
+            return Math.round(time/60*100)/100;
         }
 
-        s = s_time.split(":");
-        e = e_time.split(":");
-        
-        time = (Number(e[0])*60)+ +Number(e[1]) - (Number(s[0])*60) - Number(s[1]);
+        if (index == ($scope.records.length -1)) {
+            return differenceClock($scope.records[index].from, $scope.records[index].to);
+        }else{
+            return differenceClock($scope.records[index].from, $scope.records[index+1].from);
+        }       
 
-        if(!(time)) {
-            return "--:--";
-        }
-
-        return Math.round(time/60*100)/100;
     }
+
+
 
     $scope.saveRecord = function(){
 
@@ -46,8 +67,9 @@ function RecordCtrl($scope, $http) {
         $http({ // Accessing the Angular $http Service to send data via REST Communication to Node Server.
                 method: method,
                 url: url,
-                data:  $scope.records,
-                headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                data: JSON.stringify($scope.records),
+                headers: {'Content-Type': 'application/json'},
+                // http://stackoverflow.com/questions/11625519/how-to-access-the-request-body-when-posting-using-node-js-and-express?rq=1
                 // cache: true
             }).
             success(function(response) {
@@ -59,6 +81,9 @@ function RecordCtrl($scope, $http) {
 
     };  
 
+    $scope.calculateRecord = function(){
+        
+    }
 
 
 }

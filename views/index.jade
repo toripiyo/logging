@@ -38,8 +38,7 @@ html(lang="en", ng-app)
                                             input(type="text", ng-model="records[($index)].to", required)
                                         div(ng-if="$last == false") {{ records[($index)+1].from }}
                                     td 
-                                        div(ng-if="$last == true") {{calculateDuration(records[($index)].from,records[$index].to)}}
-                                        div(ng-if="$last == false") {{calculateDuration(records[($index)].from,records[($index)+1].from)}}
+                                        div {{calculateDuration($index)}}
                                     td
                                         input(type="text", ng-model="records[($index)].activity", required)
                                     td
@@ -54,6 +53,8 @@ html(lang="en", ng-app)
                                 //- form(method="post")
                                 button(ng-click="saveRecord()") save
                                 //- button(ng-click="insertRecord($index)") +
+                            dif
+                                button(ng-clike="calculateRecord()") calculate
                         div {{records}}
                             //- {{duration}}
             //- {{init}}
