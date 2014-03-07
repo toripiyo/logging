@@ -4,6 +4,7 @@ var RecordSchema = new mongoose.Schema({
 	// _id: {type:String},
     from: {type: String, required: true},
     to: {type: String, required: false},
+    duration: {type: Number, required: false},
     activity: {type: String, required: false},
     code: {type: String, required: false},
 },{collection: 'record'});

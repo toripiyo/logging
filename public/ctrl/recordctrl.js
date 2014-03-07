@@ -47,10 +47,16 @@ function RecordCtrl($scope, $http) {
             return Math.round(time/60*100)/100;
         }
 
+        var duration;
+
         if (index == ($scope.records.length -1)) {
-            return differenceClock($scope.records[index].from, $scope.records[index].to);
+            duration = differenceClock($scope.records[index].from, $scope.records[index].to);
+            $scope.records[index].duration = duration;
+            return duration;
         }else{
-            return differenceClock($scope.records[index].from, $scope.records[index+1].from);
+            duration = differenceClock($scope.records[index].from, $scope.records[index+1].from);
+            $scope.records[index].duration = duration;
+            return duration;
         }       
 
     }
@@ -82,7 +88,7 @@ function RecordCtrl($scope, $http) {
     };  
 
     $scope.calculateRecord = function(){
-        
+
     }
 
 
