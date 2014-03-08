@@ -1,5 +1,5 @@
 function DayCtrl($scope, $http) {
 
-    $scope.days = [];
+    $scope.days = [{title:'aaa', link:2345}];
 
 }

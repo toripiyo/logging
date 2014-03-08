@@ -5,24 +5,34 @@ html(lang="en", ng-app)
         title Logging Tool
         //- link(rel="stylesheet", href="css/app.css")
         link(rel="stylesheet", href="css/bootstrap.css")
-        script(src="angular.js")
-        script(src="ctrl/recordctrl.js")
-        script(src="ctrl/eyesctrl.js")
-        script(src="ctrl/dayctrl.js")
+        script(src="./angular.js")
+        script(src="./ctrl/recordctrl.js")
+        script(src="./ctrl/eyesctrl.js")
+        script(src="./ctrl/dayctrl.js")
+        script.
+            var check = function() {
+                alert(#{data});
+                //- alert(#{days});
+                //- alert(#{test});
+            }
     body
         div(class="container-fluid", ng-app)
             h1 Logging Tool
             div(class="row-fluid")
                 div(class="span2")
-                    div(ng-controller="DayCtrl", ng-init="days=[#{days}]")
-                        table
-                            tr
-                                td
-                                    h3 days
-                            tr(ng-repeat="day in days")
-                                td {{day}}
-                        div
-                            button(ng-clike="calculateRecord()") calculate
+                    div(ng-controller="DayCtrl")
+                        div(ng-init="days=#{days}")
+                            table
+                                tr
+                                    td
+                                        h3 days
+                                tr(ng-repeat="day in days")
+                                    td
+                                        label
+                                            input(type="checkbox", name="{{day.link}}")
+                                            a(href="/logging?days={{day.link}}") {{day.title}}
+                            div
+                                button(ng-clike="calculateRecord()") calculate
 
                     div(ng-controller="EyesCtrl")
                         table
@@ -31,11 +41,11 @@ html(lang="en", ng-app)
                                     h3 eyes content
                             tr(ng-repeat="eye in eyes")
                                 td {{eye.content}}
-                                
+
                 div(class="span10", ng-controller="RecordCtrl")
-                    h3 20140204
-                    div
-                        div(ng-init="records=[#{data}]")
+                    div(ng-init="day=#{day}")
+                        h3 {{day}}
+                        div(ng-init="initRecord([#{data}])")
                             table
                                 tr
                                     td from
@@ -49,7 +59,7 @@ html(lang="en", ng-app)
                                     td
                                         div(ng-if="$last == true")
                                             input(type="text", ng-model="records[($index)].to", required)
-                                        div(ng-if="$last == false") {{ records[($index)+1].from }}
+                                        div(ng-if="$last == false") {{ calculateTo($index) }}
                                     td 
                                         div {{calculateDuration($index)}}
                                     td
@@ -64,6 +74,5 @@ html(lang="en", ng-app)
                                         button(ng-click="deleteRecord($index)") -
                             div
                                 button(ng-click="saveRecord()") save
-                        div {{records}}
-                            //- {{duration}}
-            //- {{init}}
+                            div {{records}}
+

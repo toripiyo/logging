@@ -1,13 +1,29 @@
 function RecordCtrl($scope, $http) {
 
     $scope.records = [];
+    $scope.day;
 
-    for(i=0; i < $scope.records.length; i++){
-        $scope.records[i].to = calculate_duration($scope.records[i].from, $scope.records[i+1].from);
+    // for(i=0; i < $scope.records.length; i++){
+    //     $scope.records[i].to = calculate_duration($scope.records[i].from, $scope.records[i+1].from);
+    // }
+
+    $scope.initRecord = function(records) {
+
+        $scope.records = records;
+
+        if ($scope.records.length == 0) {
+        // if (true) {
+            $scope.records[0] = {from:'', to:'', duration:0, activity:'', code:''};
+        }
+
     }
 
     $scope.updateForm = function (index) {
-        $scope.records[index].from = new Date().getHours()+":"+ new Date().getMinutes();
+        if (index == ($scope.records.length - 1)){
+            $scope.records[index].to = new Date().getHours()+":"+ new Date().getMinutes();
+        } else {
+            $scope.records[index+1].from = new Date().getHours()+":"+ new Date().getMinutes();            
+        }
     };
 
     $scope.insertRecord = function (index){
@@ -26,13 +42,19 @@ function RecordCtrl($scope, $http) {
         $scope.records.splice(index,1);
     }
 
+    $scope.calculateTo = function (index) {
+        if (index != ($scope.records.length - 1)){
+            $scope.records[index].to = $scope.records[index+1].from;
+            return $scope.records[index].to;
+        }
+    }
 
     $scope.calculateDuration = function (index){
 
         differenceClock = function(s_time, e_time){
 
             if(!(s_time) || !(e_time)) {
-                return "--:--";
+                return "0";
             }
 
             s = s_time.split(":");
@@ -41,7 +63,7 @@ function RecordCtrl($scope, $http) {
             time = (Number(e[0])*60)+ +Number(e[1]) - (Number(s[0])*60) - Number(s[1]);
 
             if(!(time)) {
-                return "--:--";
+                return "0";
             }
 
             return Math.round(time/60*100)/100;
@@ -61,12 +83,16 @@ function RecordCtrl($scope, $http) {
 
     }
 
-
-
     $scope.saveRecord = function(){
 
         var method = 'POST';
         var url = 'http://localhost:3000/';
+
+        // add day field
+        for(i=0; i<$scope.records.length; i++){
+            $scope.records[i].day = $scope.day;
+        }
+
 
         console.log($scope.records);
 
@@ -85,7 +111,7 @@ function RecordCtrl($scope, $http) {
                 console.log("error"); // Getting Error Response in Callback
             });
 
-    };  
+    };
 
     $scope.calculateRecord = function(){
 
