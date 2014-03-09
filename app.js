@@ -1,15 +1,18 @@
-
 /**
  * Module dependencies.
  */
 
 var express = require('express');
 var logging = require('./routes/logging');
-var user = require('./routes/user');
+var calculating = require('./routes/calculating');
 var http = require('http');
 var path = require('path');
+var mongoose = require('mongoose');
 
 var app = express();
+
+// set mongodb connection
+mongoose.connect('mongodb://localhost/logging');
 
 // all environments
 app.set('port', process.env.PORT || 3000);
@@ -34,7 +37,7 @@ if ('development' == app.get('env')) {
 app.get('/logging', logging.logging);
 app.get('/logging:days', logging.logging);
 app.post('/', logging.save);
-app.get('/users', user.list);
+app.get('/calculating', calculating.showresult);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));

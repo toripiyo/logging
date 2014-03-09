@@ -5,73 +5,97 @@ html(lang="en", ng-app)
         title Logging Tool
         //- link(rel="stylesheet", href="css/app.css")
         link(rel="stylesheet", href="css/bootstrap.css")
-        script(src="./angular.js")
+        script(src="./javascripts/angular.js")
+        script(src="./javascripts/jquery-1.11.0.min.js")
+        script(src="./javascripts/bootstrap.min.js")
         script(src="./ctrl/recordctrl.js")
         script(src="./ctrl/eyesctrl.js")
         script(src="./ctrl/dayctrl.js")
         script.
-            var check = function() {
-                alert(#{data});
-                //- alert(#{days});
-                //- alert(#{test});
-            }
+            //- http://jsfiddle.net/jhfrench/NQ97h/
+            //<![CDATA[
+            $(window).load(function(){ 
+                $('#myTab a').click(function (e) {
+                    //- alert("execute!!");
+                    if($(this).parent('li').hasClass('active')){
+                        $( $(this).attr('href') ).hide();
+                    }
+                    else {
+                        e.preventDefault();
+                        $(this).tab('show');
+                    }
+                });
+            });//]]>
     body
         div(class="container-fluid", ng-app)
             h1 Logging Tool
             div(class="row-fluid")
                 div(class="span2")
-                    div(ng-controller="DayCtrl")
-                        div(ng-init="days=#{days}")
-                            table
-                                tr
-                                    td
-                                        h3 days
-                                tr(ng-repeat="day in days")
-                                    td
-                                        label
-                                            input(type="checkbox", name="{{day.link}}")
-                                            a(href="/logging?days={{day.link}}") {{day.title}}
-                            div
-                                button(ng-clike="calculateRecord()") calculate
+                    div(class="bs-docs-example")
+                        ul(id="myTab", class="nav nav-tabs")
+                            li(class="active")
+                                a(href="#eyes", data-toggle="tab")
+                                    h5 Eyes
+                            li
+                                a(href="#date", data-toggle="tab")
+                                    h5 Date
+                        div(id="myTabContent", class="tab-content")
+                            div(class="tab-pane fade in active", id="eyes")
+                                div(ng-controller="EyesCtrl")
+                                    div(class="spane2") filter
+                                        //- http://stackoverflow.com/questions/9784990/bootstrap-wider-input-field
+                                        div
+                                            input(class="form-control input-medium", ng-model="query")
+                                            table
+                                                tr(ng-repeat="eye in eyes | filter:query")
+                                                    td {{eye.content}}
+                            div(class="tab-pane fade", id="date")
+                                div(ng-controller="DayCtrl")
+                                    div(ng-init="days=#{days}")
+                                        //- http://www.w3schools.com/html/html_forms.asp
+                                        form(action="calculating", method="get")
+                                            table
+                                                tr(ng-repeat="day in days")
+                                                    td
+                                                        label
+                                                            input(type="checkbox", name="days", value="{{day.link}}")
+                                                            a(href="/logging?days={{day.link}}") {{day.title}}
+                                            input(type="submit", value="submit")
 
-                    div(ng-controller="EyesCtrl")
-                        table
-                            tr
-                                td
-                                    h3 eyes content
-                            tr(ng-repeat="eye in eyes")
-                                td {{eye.content}}
-
-                div(class="span10", ng-controller="RecordCtrl")
+                div(class="span8", ng-controller="RecordCtrl")
                     div(ng-init="day=#{day}")
                         h3 {{day}}
                         div(ng-init="initRecord([#{data}])")
-                            table
-                                tr
+                            //- http://getbootstrap.com/css/
+                            table(class="table table-hover table-condensed ")
+                                tr(class="active")
                                     td from
                                     td to
+                                    td 
+                                    td
+                                    td
                                     td duration
                                     td activity
                                     td eyes
                                 tr(ng-repeat="record in records")
                                     td
-                                        input(type="text", ng-model="records[($index)].from", required)
+                                        input(class="form-control input-mini", type="text", ng-model="records[($index)].from", required)
                                     td
                                         div(ng-if="$last == true")
-                                            input(type="text", ng-model="records[($index)].to", required)
+                                            input(class="form-control input-mini", type="text", ng-model="records[($index)].to", required)
                                         div(ng-if="$last == false") {{ calculateTo($index) }}
-                                    td 
-                                        div {{calculateDuration($index)}}
                                     td
-                                        input(type="text", ng-model="records[($index)].activity", required)
-                                    td
-                                        input(type="text", ng-model="records[($index)].code", required)
-                                    td
-                                        button(ng-click="updateForm($index)") current time
+                                        button(ng-click="updateForm($index)") now
                                     td
                                         button(ng-click="insertRecord($index)") +
                                     td
                                         button(ng-click="deleteRecord($index)") -
+                                    td 
+                                        div {{calculateDuration($index)}}
+                                    td
+                                        input(class="form-control input-xlarge", type="text", ng-model="records[($index)].activity", required)
+                                    td
+                                        input(class="form-control input-medium", type="text", ng-model="records[($index)].code", required)
                             div
                                 button(ng-click="saveRecord()") save
                             div {{records}}

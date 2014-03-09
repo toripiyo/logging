@@ -3,7 +3,7 @@ var Record = require('../model/record.js');
 var moment = require('moment');
 
 // set mongodb connection
-mongoose.connect('mongodb://localhost/logging');
+// mongoose.connect('mongodb://localhost/logging');
 
 // set moment property
 // http://momentjs.com/docs/
