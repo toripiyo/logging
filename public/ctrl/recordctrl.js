@@ -20,9 +20,9 @@ function RecordCtrl($scope, $http) {
 
     $scope.updateForm = function (index) {
         if (index == ($scope.records.length - 1)){
-            $scope.records[index].to = new Date().getHours()+":"+ new Date().getMinutes();
+            $scope.records[index].to = new Date().getHours()+":"+ ("0"+new Date().getMinutes()).slice(-2);
         } else {
-            $scope.records[index+1].from = new Date().getHours()+":"+ new Date().getMinutes();            
+            $scope.records[index+1].from = new Date().getHours()+":"+ ("0"+new Date().getMinutes()).slice(-2);
         }
     };
 
