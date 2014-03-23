@@ -1,6 +1,8 @@
+angular.module('plunker', ['ui.bootstrap']);
 function EyesCtrl($scope, $http) {
 
     $scope.records = [];
+    $scope.test = undefined;
 
     $scope.eyes = [
         {content:'075 IS blog'},
@@ -13,3 +15,4 @@ function EyesCtrl($scope, $http) {
     ];
 
 }
+

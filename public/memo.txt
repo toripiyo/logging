@@ -8,9 +8,12 @@ http://jsfiddle.net/jhfrench/NQ97h/
 
 
 <function>
-- 日付ごとの集計テーブル作成機能
-- グラフ作成機能
+- collect table creatino function per day
+- graph function
 - データを記録したときのリアクションが欲しい
+- implement Typeahead function
+ http://angular-ui.github.io/bootstrap/
+ http://angular-ui.github.io/bootstrap/#/typeahead
 
 <bug>
 - 1行のときマイナスボタンを押すとレコードがすべて消えてしまう

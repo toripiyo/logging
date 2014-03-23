@@ -1,13 +1,13 @@
 doctype html
-html(lang="en", ng-app)
+html(lang="en", ng-app="plunker")
     head
         meta(charset="utf-8")
         title Logging Tool
-        //- link(rel="stylesheet", href="css/app.css")
         link(rel="stylesheet", href="css/bootstrap.css")
         script(src="./javascripts/angular.js")
         script(src="./javascripts/jquery-1.11.0.min.js")
         script(src="./javascripts/bootstrap.min.js")
+        script(src="./javascripts/ui-bootstrap-tpls-0.10.0.js")
         script(src="./ctrl/recordctrl.js")
         script(src="./ctrl/eyesctrl.js")
         script(src="./ctrl/dayctrl.js")
@@ -28,9 +28,10 @@ html(lang="en", ng-app)
             });//]]>
     body
         div(class="container-fluid", ng-app)
+            div(id="myTabContent", class="tab-content")
             h1 Logging Tool
             div(class="row-fluid")
-                div(class="span2")
+                div(class="col-md-2")
                     div(class="bs-docs-example")
                         ul(id="myTab", class="nav nav-tabs")
                             li(class="active")
@@ -41,11 +42,12 @@ html(lang="en", ng-app)
                                     h5 Date
                         div(id="myTabContent", class="tab-content")
                             div(class="tab-pane fade in active", id="eyes")
-                                div(ng-controller="EyesCtrl")
-                                    div(class="spane2") filter
+                                div(ng-controller="RecordCtrl")
+                                    div filter
                                         //- http://stackoverflow.com/questions/9784990/bootstrap-wider-input-field
                                         div
-                                            input(class="form-control input-medium", ng-model="query")
+                                            //- input(class="form-control input-medium", ng-model="query")
+                                            input(ng-model="query")
                                             table
                                                 tr(ng-repeat="eye in eyes | filter:query")
                                                     td {{eye.content}}
@@ -62,25 +64,26 @@ html(lang="en", ng-app)
                                                             a(href="/logging?days={{day.link}}") {{day.title}}
                                             input(type="submit", value="submit")
 
-                div(class="span8", ng-controller="RecordCtrl")
+                div(class="col-md-9", ng-controller="RecordCtrl")
                     div(ng-init="day=#{day}")
                         h3 {{day}}
                         div(ng-init="initRecord([#{data}])")
                             //- http://getbootstrap.com/css/
                             table(class="table table-hover table-condensed ")
                                 tr(class="active")
-                                    td from
-                                    td to
-                                    td 
+                                    //- http://getbootstrap.com/css/#forms-control-sizes
+                                    td(class="col-xs-1") from
+                                    td(class="col-xs-1") to
                                     td
                                     td
-                                    td duration
-                                    td activity
-                                    td eyes
+                                    td
+                                    td(class="col-xs-1") duration
+                                    td(class="col-xs-4") activity
+                                    td(class="col-xs-4") eyes
                                 tr(ng-repeat="record in records")
-                                    td
-                                        input(class="form-control input-mini", type="text", ng-model="records[($index)].from", required)
-                                    td
+                                    td(class="col-xs-1")
+                                        input(class="form-control", type="text", ng-model="records[($index)].from", required)
+                                    td(class="col-xs-1")
                                         div(ng-if="$last == true")
                                             input(class="form-control input-mini", type="text", ng-model="records[($index)].to", required)
                                         div(ng-if="$last == false") {{ calculateTo($index) }}
@@ -90,12 +93,12 @@ html(lang="en", ng-app)
                                         button(ng-click="insertRecord($index)") +
                                     td
                                         button(ng-click="deleteRecord($index)") -
-                                    td 
+                                    td(class="col-xs-1")
                                         div {{calculateDuration($index)}}
-                                    td
+                                    td(class="col-xs-4")
                                         input(class="form-control input-xlarge", type="text", ng-model="records[($index)].activity", required)
-                                    td
-                                        input(class="form-control input-medium", type="text", ng-model="records[($index)].code", required)
+                                    td(class="col-xs-4")
+                                        input(class="form-control input-medium", type="text", ng-model="records[($index)].code", required, typeahead="eye.content for eye in eyes | filter:$viewValue | limitTo:8")
                             div
                                 button(ng-click="saveRecord()") save
                             div {{records}}

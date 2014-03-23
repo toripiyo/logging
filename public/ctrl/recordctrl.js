@@ -1,7 +1,18 @@
+angular.module('plunker', ['ui.bootstrap']);
 function RecordCtrl($scope, $http) {
 
     $scope.records = [];
     $scope.day;
+    $scope.test = undefined;
+    $scope.eyes = [
+        {content:'075 IS blog'},
+        {content:'新サ共通'},
+        {content:'ランチ'},
+        {content:'422 research'},
+        {content:'823 IM recipe'},
+        {content:'1025 kobo ebook'},
+        {content:'1039 IS cats paws'}
+    ];
 
     // for(i=0; i < $scope.records.length; i++){
     //     $scope.records[i].to = calculate_duration($scope.records[i].from, $scope.records[i+1].from);
