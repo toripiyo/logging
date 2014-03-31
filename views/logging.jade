@@ -98,6 +98,7 @@ html(lang="en", ng-app="plunker")
                                     td(class="col-xs-4")
                                         input(class="form-control input-xlarge", type="text", ng-model="records[($index)].activity", required)
                                     td(class="col-xs-4")
+                                        //- http://angular-ui.github.io/bootstrap/#/typeahead
                                         input(class="form-control input-medium", type="text", ng-model="records[($index)].code", required, typeahead="eye.content for eye in eyes | filter:$viewValue | limitTo:8")
                             div
                                 button(ng-click="saveRecord()") save

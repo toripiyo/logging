@@ -116,6 +116,7 @@ function RecordCtrl($scope, $http) {
                 // cache: true
             }).
             success(function(response) {
+                alert('success');
                 console.log("success"); // Getting Success Response in Callback
             }).
             error(function(response) {

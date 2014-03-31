@@ -26,7 +26,9 @@ exports.showresult = function(req, res){
 	}
 	console.log(days);
 
-	Record.find(condition, {'to':1, 'from':1, 'activity':1, 'code':1, 'duration':1, 'day':1, '_id':0}, function(err, data) {
+	Record.find(condition, {'to':1, 'from':1, 'activity':1, 'code':1, 'duration':1, 'day':1, '_id':0}, 
+		{sort:{index: 1}},		
+		function(err, data) {
 		console.log(data);
 
 		res.render('calculating', {days:JSON.stringify(days), data:data});
