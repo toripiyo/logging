@@ -28,9 +28,11 @@ html(lang="en", ng-app)
             });//]]>
     body
         div(class="container-fluid", ng-app)
-            h1 Logging Tool
+            div(id="myTabContent", class="tab-content")
+                h1 
+                    a(href="/logging", style="text-decoration: none") Logging Tool
             div(class="row-fluid")
-                div(class="span2")
+                div(class="col-md-2")
                     div(class="bs-docs-example")
                         ul(id="myTab", class="nav nav-tabs")
                             li(class="active")
@@ -54,14 +56,14 @@ html(lang="en", ng-app)
                                     div(ng-init="days=#{days}")
                                         //- http://www.w3schools.com/html/html_forms.asp
                                         form(action="calculating", method="get")
+                                            div
+                                                input(type="submit", value="calculate")
                                             table
                                                 tr(ng-repeat="day in days")
                                                     td
                                                         label
                                                             input(type="checkbox", name="days", value="{{day.link}}")
                                                             a(href="/logging?days={{day.link}}") {{day.title}}
-                                            input(type="submit", value="submit")
-
                 div(class="span8", ng-controller="RecordCtrl")
                     div(ng-init="day=#{days}")
                         h3 {{day}}
