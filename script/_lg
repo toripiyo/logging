@@ -1,0 +1,16 @@
+#! /bin/zsh
+
+_NODE_APP_PATH=~/program/angularjs/logging
+_NODE_APP_BIN=${_NODE_APP_PATH}/node_modules/.bin
+_NODE_MON_CMD=${_NODE_APP_BIN}/nodemon
+
+case "$1" in
+'start')
+	(cd ${_NODE_APP_PATH}; ${_NODE_MON_CMD} --watch views -e js,jade app.js)
+	;;
+*)
+	echo "Usage: $0 { start }"
+	exit 1
+	;;
+esac
+exit 0

@@ -19,7 +19,8 @@ exports.logging = function(req, res){
 	// define day value
 	var day;
 	if (typeof(req.query.days) == "undefined"){
-		day = moment().date(0).format('YYYYMMDD');
+		// day = moment().date(0).format('YYYYMMDD');
+		day = moment().format('YYYYMMDD');
 		console.log(day);
 	} else {
 		day = req.query.days;

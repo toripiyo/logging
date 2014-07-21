@@ -24,3 +24,20 @@ http://jsfiddle.net/jhfrench/NQ97h/
 
 
 
+
+
+
+<reference>
+- HTTP loading function
+Loading animations with Asynchronous HTTP Requests in Angular JS
+http://blog.jpamorgan.com/loading-animations-with-asynchronous-http-requests-in-angular-js/
+
+[AngularJS] Loading Indicator module that handles displaying/hiding an element while requests are being made to the server.
+https://gist.github.com/maikeldaloo/5140733
+
+
+
+
+
+
+

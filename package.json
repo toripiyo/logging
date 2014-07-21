@@ -10,6 +10,7 @@
     "jade": "*",
     "stylus": "*",
     "mongoose": "*",
-    "moment": "*"
+    "moment": "*",
+    "nodemon": "1.2.1"
   }
 }
