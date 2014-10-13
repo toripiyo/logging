@@ -5,13 +5,13 @@ function RecordCtrl($scope, $http) {
     $scope.day;
     $scope.test = undefined;
     $scope.eyes = [
-        {content:'075 IS blog'},
-        {content:'新サ共通'},
-        {content:'ランチ'},
-        {content:'422 research'},
-        {content:'823 IM recipe'},
-        {content:'1025 kobo ebook'},
-        {content:'1039 IS cats paws'}
+        {content:'075 tennis'},
+        {content:'056 work'},
+        {content:'098 lunch'},
+        {content:'111 study'},
+        {content:'456 programming'},
+        {content:'765 reading'},
+        {content:'1032 play with my cat'}
     ];
 
     // for(i=0; i < $scope.records.length; i++){
