@@ -1,13 +1,9 @@
-var mongoose = require('mongoose');
-var Record = require('../model/record.js');
-var moment = require('moment');
-
-// set mongodb connection
-// mongoose.connect('mongodb://localhost/logging');
+const Record = require('../model/record.js');
+const moment = require('moment');
 
 // set moment property
 // http://momentjs.com/docs/
-moment.lang('en', {calendar:{
+moment.locale('en', {calendar:{
 	lastDay : '[Yesterday]',
 	sameDay : '[Today]',
 	lastWeek : 'YYYYMMDD [This] ddd',
