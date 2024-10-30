@@ -8,6 +8,13 @@ var calculating = require('./routes/calculating');
 var http = require('http');
 var path = require('path');
 var mongoose = require('mongoose');
+// const favicon = require('serve-favicon');
+const morgan = require('morgan');
+const bodyParser = require('body-parser');
+const methodOverride = require('method-override');
+const cookieParser = require('cookie-parser');
+const session = require('express-session');
+const errorHandler = require('errorhandler');
 
 var app = express();
 
@@ -18,20 +25,20 @@ mongoose.connect('mongodb://localhost/logging');
 app.set('port', process.env.PORT || 3000);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
-app.use(express.favicon());
-app.use(express.logger('dev'));
-app.use(express.json());
-app.use(express.urlencoded());
-app.use(express.methodOverride());
-app.use(express.cookieParser('your secret here'));
-app.use(express.session());
-app.use(app.router);
-app.use(require('stylus').middleware(path.join(__dirname, 'public')));
+// app.use(favicon());
+app.use(morgan('dev'));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded());
+app.use(methodOverride());
+app.use(cookieParser('your secret here'));
+app.use(session());
+// app.use(app.router);
+// app.use(require('stylus').middleware(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'public')));
 
 // development only
 if ('development' == app.get('env')) {
-  app.use(express.errorHandler());
+  app.use(errorHandler());
 }
 
 app.get('/logging', logging.logging);
