@@ -20,11 +20,7 @@ MongoDB では `logging` データベースと `record` コレクションを使
 npm ci
 ```
 
-このアプリはテンプレートエンジン名として旧パッケージの `jade` を指定しています。`Cannot find module 'jade'` と表示される環境では、互換用パッケージを追加してください。
-
-```bash
-npm install --no-save jade
-```
+テンプレートエンジンには `pug` を使用します。`npm ci` によって必要なパッケージがインストールされます。
 
 ## ローカルでの起動
 
@@ -75,4 +71,4 @@ PORT=4000 npm start
 - MongoDB への接続エラーが出る場合は、Docker Desktop が起動していることと、`docker compose ps` で `mongodb` が `healthy` になっていることを確認してください。
 - ポート `27017` が使用中の場合は、ローカルにインストールした MongoDB など、同じポートを使用しているプロセスを停止してからコンテナを起動してください。
 - `EADDRINUSE` が出る場合は、ポート `3000` を使用しているプロセスを停止するか、`PORT` 環境変数で別のポートを指定してください。
-- `Cannot find module 'jade'` が出る場合は、セットアップに記載した `npm install --no-save jade` を実行してください。
+- `Cannot find module 'pug'` が出る場合は、`npm ci` を実行して依存パッケージをインストールしてください。

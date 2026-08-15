@@ -6,7 +6,7 @@ _NODE_MON_CMD=${_NODE_APP_BIN}/nodemon
 
 case "$1" in
 'start')
-	(cd ${_NODE_APP_PATH}; ${_NODE_MON_CMD} --watch views -e js,jade app.js)
+	(cd ${_NODE_APP_PATH}; ${_NODE_MON_CMD} --watch views -e js,pug app.js)
 	;;
 *)
 	echo "Usage: $0 { start }"
