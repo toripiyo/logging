@@ -1,5 +1,7 @@
-function DayCtrl($scope, $http) {
+(() => {
+    'use strict';
 
-    $scope.days = [{title:'aaa', link:2345}];
-
-}
+    angular.module('plunker').controller('DayCtrl', ['$scope', function DayCtrl($scope) {
+        $scope.days = [];
+    }]);
+})();

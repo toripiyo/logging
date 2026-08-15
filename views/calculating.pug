@@ -2,9 +2,9 @@ extends _layout
 
 block main
     div(class="col-md-9", ng-controller="RecordCtrl")
-        div(ng-init="day=#{days}")
+        div(ng-init='day=' + JSON.stringify(days))
             h3 {{day}}
-            div(ng-init="initRecord([#{data}])")
+            div(ng-init='initRecord(' + JSON.stringify(data) + ')')
                 //- http://getbootstrap.com/css/
                 table(class="table table-hover table-condensed ")
                     tr(class="active")

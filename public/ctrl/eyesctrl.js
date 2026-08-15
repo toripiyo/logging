@@ -1,18 +1,8 @@
-angular.module('plunker', ['ui.bootstrap']);
-function EyesCtrl($scope, $http) {
+(() => {
+    'use strict';
 
-    $scope.records = [];
-    $scope.test = undefined;
-
-    $scope.eyes = [
-        {content:'075 IS blog'},
-        {content:'新サ共通'},
-        {content:'ランチ'},
-        {content:'422 research'},
-        {content:'823 IM recipe'},
-        {content:'1025 kobo ebook'},
-        {content:'1039 IS cats paws'}
-    ];
-
-}
-
+    angular.module('plunker').controller('EyesCtrl', ['$scope', 'eyes', function EyesCtrl($scope, eyeOptions) {
+        $scope.records = [];
+        $scope.eyes = eyeOptions;
+    }]);
+})();

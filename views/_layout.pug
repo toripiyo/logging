@@ -15,18 +15,18 @@ html(lang="en", ng-app="plunker")
             script.
                 //- http://jsfiddle.net/jhfrench/NQ97h/
                 //<![CDATA[
-                $(window).load(function(){ 
-                    $('#myTab a').click(function (e) {
+                $(window).on('load', () => {
+                    $('#myTab a').on('click', (event) => {
+                        const link = $(event.currentTarget);
                         //- alert("execute!!");
-                        if($(this).parent('li').hasClass('active')){
-                            $( $(this).attr('href') ).hide();
-                        }
-                        else {
-                            e.preventDefault();
-                            $(this).tab('show');
+                        if (link.parent('li').hasClass('active')) {
+                            $(link.attr('href')).hide();
+                        } else {
+                            event.preventDefault();
+                            link.tab('show');
                         }
                     });
-                });//]]>
+                }); //]]>
     body
         div(class="container-fluid", ng-app)
             div(id="myTabContent", class="tab-content")
@@ -56,7 +56,7 @@ html(lang="en", ng-app="plunker")
                                                         td {{eye.content}}
                                 div(class="tab-pane fade", id="date")
                                     div(ng-controller="DayCtrl")
-                                        div(ng-init="days=#{days}")
+                                        div(ng-init='days=' + JSON.stringify(days))
                                             //- http://www.w3schools.com/html/html_forms.asp
                                             form(action="calculating", method="get")
                                                 div

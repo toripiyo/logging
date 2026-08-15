@@ -1,14 +1,13 @@
-var mongoose = require('mongoose');
+const mongoose = require('mongoose');
 
-var RecordSchema = new mongoose.Schema({
-	// _id: {type:String},
-	index: {type: Number, required: true},
-	day: {type: String, required: true},
-    from: {type: String, required: false},
-    to: {type: String, required: false},
-    duration: {type: Number, required: false},
-    activity: {type: String, required: false},
-    code: {type: String, required: false},
-},{collection: 'record'});
+const recordSchema = new mongoose.Schema({
+  index: {type: Number, required: true},
+  day: {type: String, required: true},
+  from: String,
+  to: String,
+  duration: Number,
+  activity: String,
+  code: String,
+}, {collection: 'record'});
 
-module.exports = mongoose.model('Record', RecordSchema);
+module.exports = mongoose.model('Record', recordSchema);
