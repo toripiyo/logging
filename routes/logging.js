@@ -10,7 +10,7 @@ moment.locale('en', {calendar:{
 	sameElse : 'YYYYMMDD ddd'
 }});
 
-exports.logging = function(req, res){
+exports.logging = async function(req, res, next){
 
 	// define day value
 	var day;
@@ -23,16 +23,18 @@ exports.logging = function(req, res){
 	}
 
 	// http://stackoverflow.com/questions/4299991/how-to-sort-in-mongoose
-	Record.find({'day':day}, {'_id':0, 'from':1, 'to':1, 'activity':1, 'code':1}, 
+	try {
 		// specify not retrieving _id from mongodb http://stackoverflow.com/questions/9598505/mongoose-retrieving-data-without-id-field
-		{sort:{index: 1}},
-		function(err, data) {
+		const data = await Record.find(
+			{'day':day},
+			{'_id':0, 'from':1, 'to':1, 'activity':1, 'code':1}
+		).sort({index: 1}).exec();
+
 			var days = [];
 			var link;
 			var title;
-			var test = [];
 
-			for(i=0; i < 30; i++){
+			for(var i=0; i < 30; i++){
 				link = moment().subtract("days", i).format('YYYYMMDD');
 				title = moment().subtract("days", i).calendar();
 				days.push({link:link, title:title});
@@ -43,29 +45,40 @@ exports.logging = function(req, res){
 
 			// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify
 			res.render('logging', {data: data, day:day, days: JSON.stringify(days)});
-		});
+	} catch (err) {
+		next(err);
+	}
 
 };
 
-exports.save = function(req, res){
+exports.save = async function(req, res, next){
 
 	res.header("Access-Control-Allow-Origin", "http://localhost");
 	res.header("Access-Control-Allow-Methods", "GET, POST");
 	// console.log(req.body);
 
-	Record.find({'day':req.body[0].day}).remove(function(err){
-		if(err){
-			console(err);
-		}
-	});
+	if (!Array.isArray(req.body) || req.body.length === 0) {
+		return res.status(400).send('No records supplied');
+	}
 
-	for (var i=0; i<req.body.length; i++ ) {
-		var record = 
-			new Record( {"index": i, "day": req.body[i].day, "from" : req.body[i].from, "to" : req.body[i].to, "duration" : req.body[i].duration, "activity" : req.body[i].activity, "code" : req.body[i].code} );
-		record.save(function(err){
-			if(err) console.log(err);
+	try {
+		await Record.deleteMany({'day':req.body[0].day}).exec();
+
+		const records = req.body.map(function(item, index) {
+			return {
+				"index": index,
+				"day": item.day,
+				"from": item.from,
+				"to": item.to,
+				"duration": item.duration,
+				"activity": item.activity,
+				"code": item.code
+			};
 		});
-	};
+		await Record.insertMany(records);
 
-	res.end("User saved");
+		res.end("User saved");
+	} catch (err) {
+		next(err);
+	}
 };
