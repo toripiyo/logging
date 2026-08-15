@@ -6,7 +6,7 @@ var moment = require('moment');
 // mongoose.connect('mongodb://localhost/logging');
 
 
-exports.showresult = function(req, res){
+exports.showresult = async function(req, res, next){
 	// console.log(req.query.days);
 
 	//find checked days 
@@ -19,21 +19,24 @@ exports.showresult = function(req, res){
 		days = req.query.days;
 		condition = {day:days};
 	} else {
-		for(i=0; i<req.query.days.length; i++){
+		for(var i=0; i<req.query.days.length; i++){
 			days.push({day:req.query.days[i]});
 		}
 		condition = {$or:days};
 	}
 	console.log(days);
 
-	Record.find(condition, {'to':1, 'from':1, 'activity':1, 'code':1, 'duration':1, 'day':1, '_id':0}, 
-		{sort:{index: 1}},		
-		function(err, data) {
+	try {
+		const data = await Record.find(
+			condition,
+			{'to':1, 'from':1, 'activity':1, 'code':1, 'duration':1, 'day':1, '_id':0}
+		).sort({index: 1}).exec();
 		console.log(data);
 
 		res.render('calculating', {days:JSON.stringify(days), data:data});
-
-	});
+	} catch (err) {
+		next(err);
+	}
 
 // // http://www.shamasis.net/2009/09/fast-algorithm-to-find-unique-items-in-javascript-array/
 // Array.prototype.unique = function() {
